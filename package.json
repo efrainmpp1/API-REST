@@ -1,0 +1,32 @@
+{
+  "name": "api-rest",
+  "version": "1.0.0",
+  "description": "\"API-REST para app mobile\"",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efrainmpp1/API-REST.git"
+  },
+  "author": "Efrain Marcelo Pulgar Pantaleon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/efrainmpp1/API-REST/issues"
+  },
+  "homepage": "https://github.com/efrainmpp1/API-REST#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.2",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.13.0",
+    "sequelize-cli": "^6.4.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
