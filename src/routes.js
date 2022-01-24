@@ -1,17 +1,18 @@
 const express = require('express');
 const UserController = require('./controllers/userController');
+const authenticateUser = require('./middlewares/auth');
 const User = require('./models/User');
 
 const routes = express.Router();
 
 
-routes.get('/' , (req,res) => {
+routes.get('/',(req,res) => {
   return res.json({StatusServer : "O teste Deu Bom"})
 });
 
 //Definindo as rotas do nosso CRUD de usuarios
 
-routes.get('/users', UserController.read);
+routes.get('/users', authenticateUser ,UserController.read);
 
 routes.get('/users/:id', UserController.readOne);
 
