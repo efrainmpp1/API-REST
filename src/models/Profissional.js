@@ -1,4 +1,3 @@
-const { type } = require('express/lib/response');
 const Sequelize = require('sequelize');
 
 //importando nosso db para trabalhar nosso model
