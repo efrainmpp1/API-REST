@@ -57,11 +57,11 @@ const User = db.define( 'tbl_pacientes' , {
     type:Sequelize.BOOLEAN,
     allowNull:false,
   },
-  familiar_Ansioso:{
+  familiar_ansioso:{
     type:Sequelize.BOOLEAN,
     allowNull:false,
   },
-  familiar_Depressivo :{
+  familiar_depressivo :{
     type:Sequelize.BOOLEAN,
     allowNull:false,
   },
