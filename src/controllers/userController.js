@@ -2,7 +2,9 @@
 const User = require('../models/User');
 const UserServices = require('../services/UserService');
 const {v4} = require('uuid');
-const {hash} = require('bcrypt');
+const {hash , compare} = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const SECRET = 'testestoken'; //Futuramente será feito um .env para essas ocasiões 
 
 class UserController {
 
@@ -27,8 +29,8 @@ class UserController {
 
     //gerar id e gerar senha criptografada(Futuramente estarão organizadas em UsersServices)
     const id = v4(); 
-    const newPassword = await hash(password,8);
-    const newUser = await User.create({id ,name , email , username , password : newPassword , telefone , uf  , cep , data_nascimento , ansiedade ,depressao , familiar_ansioso , familiar_depressivo , ajuda_profissional})
+    const hashPassword = await hash(password,8);
+    await User.create({id ,name , email , username , password : hashPassword , telefone , uf  , cep , data_nascimento , ansiedade ,depressao , familiar_ansioso , familiar_depressivo , ajuda_profissional})
     .then(()=> {
       return res.json({
         erro: false,
@@ -45,26 +47,47 @@ class UserController {
 
   async updateUser(req, res) {
     const idUser  = req.params.id;
-    const subject = await SubjectModel.update(req.body, {
-        where: {
-            id: idUser
-        }
-    });
+    const subject = await User.update(req.body, {where: {id: idUser}});
     return res.status(201).json({
         status: "Usuário atualizado com sucesso"
     });
   };
 
   async deleteUser(req , res) {
-    const { iidUser } = req.params.id;
-    const subject = await SubjectModel.destroy({
+    const { idUser } = req.params.id;
+    const subject = await User.destroy({
         where: {
-            id: iidUser
+            id: idUser
         }
     });
     return res.status(200).json({
         status: "Usuario deletado com sucesso"
     });
+  }
+
+  async loginUser(req , res){
+    const {username , password} = req.body;
+    const user = await User.findOne({
+      atrributes: ['id' , 'username' , 'password'],
+      where : {username : username },
+    });
+    //verificando se o usuarname digitado existe
+    if(user == null){
+      return res.json({
+        erro : true ,
+        mensagem : "Erro: Usuario ou senha incorreto"
+      })
+    }
+    //Comparando senhas para conceder acesso ao usuario
+    if(!compare(password , user.password)){
+      return res.status(401).json({
+        erro: true,
+        mensagem : "Erro: Usuario ou senha incorreto"
+      })
+    }
+    //Criando nosso token de acesso do usuario (por enquanto expira em 5 min)
+    const token = jwt.sign({userID : user.id} , SECRET , {expiresIn: 300}); 
+    return res.json({ auth : true , token: token});
   }
   
 };

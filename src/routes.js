@@ -21,5 +21,6 @@ routes.put('/users/:id' , UserController.updateUser);
 
 routes.delete('/users/:id' ,UserController.deleteUser);
 
+routes.post('/login' , UserController.loginUser);
 
 module.exports = routes;
