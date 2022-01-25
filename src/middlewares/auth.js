@@ -11,6 +11,7 @@ const authenticateUser = (req , res , next) => {
         mensagem: "Usuario Não Autorizado"
       })
     }
+    // se tudo estiver ok, salva no request para uso posterior
     req.id = decoded.id;
     next();
   })

@@ -59,7 +59,7 @@ const Profissional = db.define('tbl_profissionais', {
 });
 
 //Realizar alteração da tabela ja esxistente
-//User.sync();
+//Profissional.sync();
 
 //Buscar futuramente formas de fazer migrations
 
