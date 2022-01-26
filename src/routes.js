@@ -6,7 +6,7 @@ const Profissional = require('./models/Profissional');
 const UserController = require('./controllers/userController');
 const ProfissionalController = require('./controllers/profissionalController');
 
-const authenticateUser = require('./middlewares/auth');
+const Authenticate = require('./middlewares/auth');
 
 const routes = express.Router();
 
@@ -18,9 +18,9 @@ routes.get('/',(req,res) => {
 //Definindo nossas rotas para os usuarios 
 routes.post('/userLogin' , UserController.login);//Login do usuario
 routes.post('/userSignUp', UserController.cadastrar);//Cadatro de um novo Usuário
-routes.get('/users/:id',authenticateUser,UserController.readOne);//Obter dados do user
-routes.put('/users/:id',authenticateUser,UserController.update);//Update User
-routes.delete('/users/:id',authenticateUser,UserController.delete);//Deletar conta
+routes.get('/users/:id',Authenticate.authUser,UserController.readOne);//Obter dados do user
+routes.put('/users/:id',Authenticate.authUser,UserController.update);//Update User
+routes.delete('/users/:id',Authenticate.authUser,UserController.delete);//Deletar conta
 //routes.get('/users',  UserController.read); //Listar dado de todos os users
 
 // Definindo as rotas para os Profissionais
