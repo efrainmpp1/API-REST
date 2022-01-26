@@ -5,6 +5,7 @@ const db = require('../database/index');
 
 //Definindo nosso modelo de usuario definindo seus atributos
 
+//Pelo momento são esses os atributos que regem o profissional
 const Profissional = db.define('tbl_profissionais', {
   id: {
     type: Sequelize.STRING,

@@ -22,7 +22,7 @@ class UserController {
     return user ? res.status(200).json(user) : res.status(204).send();
   }
    
-  async cadastrarUser(req, res){
+  async cadastrar(req, res){
     console.log(req.body);
     const {name , email , username , password , telefone , uf  , cep , data_nascimento , ansiedade ,depressao , familiar_ansioso , familiar_depressivo , ajuda_profissional} = req.body;
     //função de User Service para ver se os dados são validos
@@ -45,17 +45,17 @@ class UserController {
     
   };
 
-  async updateUser(req, res) {
+  async update(req, res) {
     const idUser  = req.params.id;
-    const subject = await User.update(req.body, {where: {id: idUser}});
+    await User.update(req.body, {where: {id: idUser}});
     return res.status(201).json({
         status: "Usuário atualizado com sucesso"
     });
   };
 
-  async deleteUser(req , res) {
+  async delete(req , res) {
     const { idUser } = req.params.id;
-    const subject = await User.destroy({
+    await User.destroy({
         where: {
             id: idUser
         }
@@ -65,7 +65,7 @@ class UserController {
     });
   }
 
-  async loginUser(req , res){
+  async login(req , res){
     const {username , password} = req.body;
     const user = await User.findOne({
       atrributes: ['id' , 'username' , 'password'],

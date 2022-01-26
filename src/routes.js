@@ -1,9 +1,12 @@
 const express = require('express');
-const UserController = require('./controllers/userController');
-const ProfissionalController = require('./controllers/profissionalController');
-const authenticateUser = require('./middlewares/auth');
+
 const User = require('./models/User');
 const Profissional = require('./models/Profissional');
+
+const UserController = require('./controllers/userController');
+const ProfissionalController = require('./controllers/profissionalController');
+
+const authenticateUser = require('./middlewares/auth');
 
 const routes = express.Router();
 
@@ -12,23 +15,20 @@ routes.get('/',(req,res) => {
   return res.json({StatusServer : "Deu Bom"})
 });
 
-//rota de login do usuario
-routes.post('/userLogin' , UserController.loginUser);
+//Definindo nossas rotas para os usuarios 
+routes.post('/userLogin' , UserController.login);//Login do usuario
+routes.post('/userSignUp', UserController.cadastrar);//Cadatro de um novo Usuário
+routes.get('/users/:id',authenticateUser,UserController.readOne);//Obter dados do user
+routes.put('/users/:id',authenticateUser,UserController.update);//Update User
+routes.delete('/users/:id',authenticateUser,UserController.delete);//Deletar conta
+//routes.get('/users',  UserController.read); //Listar dado de todos os users
 
-//Definindo as rotas do nosso CRUD de usuarios
+// Definindo as rotas para os Profissionais
+routes.post('/profissionalLogin' , ProfissionalController.login);//login
+routes.post('/userSignUp' , ProfissionalController.signUp); //Cadastro de profissionais
+routes.get('/profissionais/:id' , ProfissionalController.readOne);
+routes.put('/profissionais/:id' , ProfissionalController.update);
+routes.delete('/profissionais/:id' , ProfissionalController.delete);
 
-routes.get('/users',  UserController.read); //Restringir depois essa rota
-
-routes.get('/users/:id', authenticateUser , UserController.readOne);
-
-routes.post('/users', UserController.cadastrarUser);
-
-routes.put('/users/:id' , authenticateUser , UserController.updateUser);
-
-routes.delete('/users/:id' , authenticateUser , UserController.deleteUser);
-
-// Definindo as rotas do CRUD das contas dos Profissionais
-
-routes.get('/profissionais' , ProfissionalController.read);
 
 module.exports = routes;
