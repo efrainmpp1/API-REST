@@ -7,19 +7,19 @@ class Authenticate {
   authUser = (req , res , next) => {
     const token = req.headers['x-access-token'];
     jwt.verify(token , SECRET , (err , decoded) =>{
-      if(err){
+      if(err || decoded.userID != req.params.id ){
         return res.status(401).json({
           erro: true,
           mensagem: "Usuario Não Autorizado"
         })
       }
       // se tudo estiver ok, salva no request para uso posterior
-      req.id = decoded.id;
+      req.id = decoded.userID;
       next();
     })
   };
 
-}
+};
 
 
 module.exports = new Authenticate;
