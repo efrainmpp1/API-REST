@@ -7,6 +7,6 @@ Nesse repositório terá os arquivos da API-REST desenvolvida em Node para Aplic
 ```git clone https://github.com/efrainmpp1/API-REST```
 - Entre na pasta do repositório com ```cd API-MINDATA```
 - Rodar o comando ```npm i```
-- Criar um DB local e deixar devidamente configurado em ```src\config\database.js```
+- Criar um DB SQL local e deixar devidamente configurado em ```src\config\database.js```(Qualquer coisa checar a documentação do Sequelize)
 - Va na pasta ```src\models\``` e nos arquivos, ative a sincronização que por hora estão comentadas, então apagar os // da frente
 - Por fim rode ```npm run dev``` para rodar a versão de desenvolvedor que usa o nodemon, ou rode ```npm start``` para rodar só com node 
